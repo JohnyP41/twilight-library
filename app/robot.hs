@@ -1,13 +1,14 @@
 import ShadowLibrary.Core
 import Text.XML.HXT.Core
 import Text.XML.HXT.XPath
-import Text.XML.HXT.Curl
 import Data.List
 import Data.List.Utils (replace)
 import Text.Regex.Posix
 import Text.Printf
+--import Text.XML.HXT.Curl
 
-extractRecords = extractLinksWithText "//a[@class='roczniki']"  -- pary adres-tytuł
+
+extractRecords = extractLinksWithText "//a[@class='hermes50-1']"  -- pary adres-tytuł
                  >>> second (arr $ replace "\r\n            " " ") -- czyścimy drugi element pary, czyli tytuł z niepotrzebnych białych znaków
                  >>> first (arr ((++"tr") . init))  -- modyfikujemy pierwszy element pary, czyli adres URL
                  >>> first (extractLinksWithText "//li/a[contains(@href,'.pdf')]") -- pobieramy stronę z adresu URL i wyciągamy linki z tej strony pasujące do wyrażenia XPathowego
@@ -22,7 +23,7 @@ toShadowItem ((url, articleTitle), yearlyTitle) =
     format = Just "pdf",
     finalUrl = url
     }
-  where title = "skup.makulatury.prl" ++ yearlyTitle ++ " " ++ (replace "\r\n" "" (replace "\r\n          " "" articleTitle))
+  where title = "hermes50-1" ++ yearlyTitle ++ " " ++ (replace "\r\n" "" (replace "\r\n          " "" articleTitle))
         date = getDate url
 
 getDate url =
@@ -32,10 +33,10 @@ getDate url =
 
 
 main = do
-    let start = "https://chomikuj.pl/skup.makulatury.prl"
+    let start = "http://chomikuj.pl/hermes50-1"
     let shadowLibrary = ShadowLibrary {logoUrl=Nothing,
-                                       lname="skup.makulatury.prl",
-                                       abbrev="skup.makulatury.prl",
+                                       lname="hermes50-1",
+                                       abbrev="hermes50-1",
                                        lLevel=0,
                                        webpage=start}
     extractItemsStartingFromUrl shadowLibrary start (extractRecords >>> arr toShadowItem)

@@ -7,7 +7,6 @@ import Data.List.Utils (replace)
 import Text.Regex.Posix
 import Text.Printf
 
-
 extractRecords = extractLinksWithText "//a[@class='roczniki']"  -- pary adres-tytuł
                  >>> second (arr $ replace "\r\n            " " ") -- czyścimy drugi element pary, czyli tytuł z niepotrzebnych białych znaków
                  >>> first (arr ((++"tr") . init))  -- modyfikujemy pierwszy element pary, czyli adres URL
@@ -23,7 +22,7 @@ toShadowItem ((url, articleTitle), yearlyTitle) =
     format = Just "pdf",
     finalUrl = url
     }
-  where title = "Almanach Muszyny " ++ yearlyTitle ++ " " ++ (replace "\r\n" "" (replace "\r\n          " "" articleTitle))
+  where title = "skup.makulatury.prl" ++ yearlyTitle ++ " " ++ (replace "\r\n" "" (replace "\r\n          " "" articleTitle))
         date = getDate url
 
 getDate url =
@@ -33,10 +32,10 @@ getDate url =
 
 
 main = do
-    let start = "http://www.almanachmuszyny.pl/"
+    let start = "https://chomikuj.pl/skup.makulatury.prl"
     let shadowLibrary = ShadowLibrary {logoUrl=Nothing,
-                                       lname="Almanach Muszyny",
-                                       abbrev="AlmMusz",
+                                       lname="skup.makulatury.prl",
+                                       abbrev="skup.makulatury.prl",
                                        lLevel=0,
                                        webpage=start}
     extractItemsStartingFromUrl shadowLibrary start (extractRecords >>> arr toShadowItem)

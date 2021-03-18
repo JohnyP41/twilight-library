@@ -1,3 +1,4 @@
+{-# LANGUAGE Arrows, NoMonomorphismRestriction #-}
 import ShadowLibrary.Core
 import Text.XML.HXT.Core
 import Text.XML.HXT.XPath
@@ -7,7 +8,7 @@ import Text.Regex.Posix
 import Text.Printf
 
 extractRecords = extractLinksWithText "//a[contains(@href,'.htm')]" 
-                 >>> second (arr $ replace "\r\n            " " ") 
+                 >>> second (arr $ replace "\r\n" " ") 
                  >>> first (extractLinksWithText "//a[contains(@href,'.pdf')]")
                  
                  
@@ -19,8 +20,14 @@ toShadowItem ((url, articleTitle), yearlyTitle) =
     format = Just "pdf",
     finalUrl = url
     }
-
   where title = "Pte " ++ yearlyTitle ++ " " ++ (replace "\r\n" "" (replace "\r\n          " "" articleTitle))
+        date = getDate url
+
+getDate url =
+  case url =~~ "/(19[0-9][0-9]|20[0-9][0-9])/" :: Maybe [[String]] of
+    Just [[_, year]] -> year
+    otherwise -> error $ "unexpected url: " ++ url
+
 
 main = do
     let start = "http://pte.au.poznan.pl/PTE_left.htm"

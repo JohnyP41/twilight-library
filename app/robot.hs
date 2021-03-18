@@ -8,25 +8,34 @@ import Text.Regex.Posix
 import Text.Printf
 
 extractRecords = extractLinksWithText "//a[contains(@href,'.htm')]" 
-                 >>> second (arr $ replace "\r\n" " ") 
+                 >>> second (arr $ replace "\r\n" "")
+                 >>> second (arr $ replace "\n\t\t\t\t\t\t\t\t\t\t\t" "")
+                 >>> second (arr $ replace "\n\t\t\t\t\t\t\t\t\t\t" "")
                  >>> first (extractLinksWithText "//a[contains(@href,'.pdf')]")
                  
                  
 toShadowItem :: ((String, String), String) -> ShadowItem
 toShadowItem ((url, articleTitle), yearlyTitle) =
   (defaultShadowItem url title) {
-    originalDate = Nothing,
+    originalDate = extractMonthAndYear title,
     itype = "periodical",
     format = Just "pdf",
-    finalUrl = url
+    finalUrl = url,
+    description = extractFileSize title
     }
   where title = "Pte " ++ yearlyTitle ++ " " ++ (replace "\r\n" "" (replace "\r\n          " "" articleTitle))
-        date = getDate url
 
-getDate url =
-  case url =~~ "/(19[0-9][0-9]|20[0-9][0-9])/" :: Maybe [[String]] of
-    Just [[_, year]] -> year
-    otherwise -> error $ "unexpected url: " ++ url
+extractMonthAndYear :: String -> Maybe String
+extractMonthAndYear n =
+  case n =~~ ("[a-z]* (1[6789]|20)[0-9][0-9]" :: String) of
+    Just year -> Just year
+    otherwise -> Nothing
+
+extractFileSize :: String -> Maybe String
+extractFileSize n =
+  case n =~~ ("([0-9]*)\\.([0-9]*) (B|kB|MB)" :: String) of
+    Just fileSize -> Just fileSize
+    otherwise -> Nothing 
 
 
 main = do

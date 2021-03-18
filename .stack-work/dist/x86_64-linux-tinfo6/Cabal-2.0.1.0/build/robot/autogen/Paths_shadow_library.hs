@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/johny/Pulpit/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/bin"
-libdir     = "/home/johny/Pulpit/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/lib/x86_64-linux-ghc-8.2.2/shadow-library-0.1.0.0-AkplTdKRpKnGo7g3WjDtz3-robot"
-dynlibdir  = "/home/johny/Pulpit/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/lib/x86_64-linux-ghc-8.2.2"
-datadir    = "/home/johny/Pulpit/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/share/x86_64-linux-ghc-8.2.2/shadow-library-0.1.0.0"
-libexecdir = "/home/johny/Pulpit/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/libexec/x86_64-linux-ghc-8.2.2/shadow-library-0.1.0.0"
-sysconfdir = "/home/johny/Pulpit/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/etc"
+bindir     = "/home/johny/Pulpit/ISI/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/bin"
+libdir     = "/home/johny/Pulpit/ISI/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/lib/x86_64-linux-ghc-8.2.2/shadow-library-0.1.0.0-AkplTdKRpKnGo7g3WjDtz3-robot"
+dynlibdir  = "/home/johny/Pulpit/ISI/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/lib/x86_64-linux-ghc-8.2.2"
+datadir    = "/home/johny/Pulpit/ISI/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/share/x86_64-linux-ghc-8.2.2/shadow-library-0.1.0.0"
+libexecdir = "/home/johny/Pulpit/ISI/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/libexec/x86_64-linux-ghc-8.2.2/shadow-library-0.1.0.0"
+sysconfdir = "/home/johny/Pulpit/ISI/twilight-library/.stack-work/install/x86_64-linux-tinfo6/81f0510467492864a086a6e475d0acfd845fd2ac3184ffef48be8290f9aa09fb/8.2.2/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "shadow_library_bindir") (\_ -> return bindir)

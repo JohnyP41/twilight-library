@@ -8,9 +8,12 @@ import Text.Printf
 
 
 extractRecords = extractLinksWithText "//a[contains(@href,'.pdf')]"  -- pary adres-tytuł
-                  >>> second (arr $ replace "\r\n            " " ") 
-                >>> first (arr ((++"tr") . init)) 
+                 >>> second (arr $ replace "\r\n            " " ") 
+                 >>> first (arr ((++"tr") . init)) 
                  >>> first (extractLinksWithText "//li/a[contains(@href,'.pdf')]")
+                 
+                 
+                 
 toShadowItem :: ((String, String), String) -> ShadowItem
 toShadowItem ((url, articleTitle), yearlyTitle) =
   (defaultShadowItem url title) {
@@ -31,7 +34,7 @@ getDate url =
 main = do
     let start = "http://pte.au.poznan.pl"
     let shadowLibrary = ShadowLibrary {logoUrl=Nothing,
-                                       lname="Pte",
+                                       lname="Pte.au.poznan",
                                        abbrev="Pte",
                                        lLevel=0,
                                        webpage=start}

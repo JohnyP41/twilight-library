@@ -44,5 +44,5 @@ main = do
                                         lname="Pte.au.poznan",
                                         abbrev="Pte",
                                         lLevel=0,
-                                        webpage="http://pte.au.poznan.pl/"}
+                                        webpage=start}
     extractItemsStartingFromUrl shadowLibrary start (extractRecords >>> arr toShadowItem)
